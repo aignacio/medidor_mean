@@ -3,20 +3,40 @@
 <head>
     <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
     <link rel="stylesheet" type="text/css" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css"/>
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
-    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="app/controller.js"></script>
     <script type="text/javascript" src="app/app.js"></script>
+    <script type="text/javascript" src="bower_components/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="bower_components/highcharts/highcharts-more.js"></script>
+    <script type="text/javascript" src="bower_components/highcharts/modules/exporting.js"></script>
+
     <meta charset="UTF-8">
+    <style>
+      .medidor {
+        /*width: 100%;*/
+        height: 500px;
+        margin: 0 auto;
+        text-align: center;
+      }
+    </style>
     <title>Medidor de potência - Wattímetro</title>
 </head>
 <body>
   <div ng-controller="mainCtrl" class="row">
-    <h1>{{corrente}}</h1>
-    <h1>{{tensao}}</h1>
-    <h1>{{potencia}}</h1>
-
+    <div class="row">
+      <div id="corrente" class="col-md-4 medidor"></div>
+      <div id="tensao"   class="col-md-4 medidor"></div>
+      <div id="potencia" class="col-md-4 medidor"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 medidor"><h2>{{corrente}}A</h2></div>
+      <div class="col-md-4 medidor"><h2>{{tensao}}V</h2></div>
+      <div class="col-md-4 medidor"><h2>{{potencia}}W</h2></div>
+    </div>
   </div>
 </body>
 </html>

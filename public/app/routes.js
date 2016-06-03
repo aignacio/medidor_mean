@@ -46,6 +46,10 @@ module.exports = function(app) {
       });
     });
 
+    app.get('/filipe', function(req, res) {
+      res.send("Filipe is lindo");
+    });
+
     app.get('*', function(req, res) {
         res.sendfile('./public/views/index.html'); // load our public/index.html file
     });
