@@ -33,9 +33,9 @@
       <div id="potencia" class="col-md-4 medidor"></div>
     </div>
     <div class="row">
-      <div class="col-md-4 medidor"><h2>{{corrente}}A</h2></div>
-      <div class="col-md-4 medidor"><h2>{{tensao}}V</h2></div>
-      <div class="col-md-4 medidor"><h2>{{potencia}}W</h2></div>
+      <div class="col-md-4 medidor"><h2>{{corrente | number:2}}A</h2></div>
+      <div class="col-md-4 medidor"><h2>{{tensao | number:2}}V</h2></div>
+      <div class="col-md-4 medidor"><h2>{{potencia | number:2}}W</h2></div>
     </div>
   </div>
 </body>
