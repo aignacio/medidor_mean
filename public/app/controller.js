@@ -58,103 +58,83 @@ wattcontroller.controller('mainCtrl',[ '$scope','$timeout','$http',function ($sc
 
   $(function () {
     $('#corrente').highcharts({
-        chart: {
-            type: 'gauge',
-            plotBackgroundColor: null,
-            plotBackgroundImage: null,
-            plotBorderWidth: 0,
-            plotShadow: true
+      chart: {
 
-        },
+                  type: 'gauge',
+                  plotBorderWidth: 0,
+                  plotBackgroundColor: {
+                      linearGradient: { x1: 0, y1: 0 },
+                      stops: [
+                          [0, 'white'],
+                          [0.3, 'white'],
+                          [1, 'white']
+                      ]
+                  },
+                  plotBackgroundImage: null,
+                  height: 500
+              },
 
-        title: {
-            text: 'Corrente'
-        },
+              title: {
+                  text: 'Corrente'
+              },
 
-        pane: {
-            startAngle: -150,
-            endAngle: 150,
-            background: [{
-                backgroundColor: {
-                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                    stops: [
-                        [0, '#FFF'],
-                        [1, '#333']
-                    ]
-                },
-                borderWidth: 0,
-                outerRadius: '109%'
-            }, {
-                backgroundColor: {
-                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                    stops: [
-                        [0, '#333'],
-                        [1, '#FFF']
-                    ]
-                },
-                borderWidth: 1,
-                outerRadius: '107%'
-            }, {
-                // default background
-            }, {
-                backgroundColor: '#DDD',
-                borderWidth: 0,
-                outerRadius: '105%',
-                innerRadius: '103%'
-            }]
-        },
+              pane: [{
+                  startAngle: -60,
+                  endAngle: 60,
+                  background: null,
+                  center: ['50%', '50%'],
+                  size: 350
+              }],
 
-        // the value axis
-        yAxis: {
-            min: 0,
-            max: 5,
+              tooltip: {
+                  enabled: false
+              },
+               exporting: { enabled: false },
 
-            minorTickInterval: 'auto',
-            minorTickWidth: 1,
-            minorTickLength: 10,
-            minorTickPosition: 'inside',
-            minorTickColor: '#666',
+              yAxis: [{
+                  min: 0,
+                  max: 5,
+                  minorTickPosition: 'outside',
+                  minorTickInterval: 'auto',
 
-            tickPixelInterval: 30,
-            tickWidth: 2,
-            tickPosition: 'inside',
-            tickLength: 10,
-            tickColor: '#666',
-            labels: {
-                step: 2,
-                rotation: 'auto',
-                style: {
-                    color: 'black',
-                    fontSize:'15px'
-                }
-            },
-            title: {
-                text: 'A'
-            },
-            plotBands: [{
-                from: 0,
-                to: 2,
-                color: '#55BF3B' // green
-            }, {
-                from: 2,
-                to:4.5,
-                color: '#DDDF0D' // yellow
-            }, {
-                from: 4.5,
-                to: 5,
-                color: '#DF5353' // red
-            }]
-        },
-        exporting: { enabled: false },
-        series: [{
-            name: 'Corrente',
-            data: [0],
-            tooltip: {
-                valueSuffix: ' A'
-            }
-        }]
+                  tickPosition: 'outside',
+                  labels: {
+                      rotation: 'auto',
+                      distance: 20
+                  },
+                  plotBands: [{
+                      from: 4.5,
+                      to: 5,
+                      color: '#C02316',
+                      innerRadius: '100%',
+                      outerRadius: '105%'
+                  }],
+                  pane: 0,
+                  title: {
+                      text: '<br/><span style="font-size:20px">Corrente (A)</span>',
+                      y: 0
+                  }
+              }],
 
-        },
+              plotOptions: {
+                  gauge: {
+                      dataLabels: {
+                          enabled: false
+                      },
+                      dial: {
+                          radius: '100%'
+                      }
+                  }
+              },
+
+
+              series: [{
+                  name: 'Channel A',
+                  data: [0],
+                  yAxis: 0
+              }]
+
+          },
 
         function (chart) {
         if (!chart.renderer.forExport) {
@@ -167,103 +147,83 @@ wattcontroller.controller('mainCtrl',[ '$scope','$timeout','$http',function ($sc
         });
 
         $('#tensao').highcharts({
-            chart: {
-                type: 'gauge',
-                plotBackgroundColor: null,
-                plotBackgroundImage: null,
-                plotBorderWidth: 0,
-                plotShadow: false
-            },
+          chart: {
 
-            title: {
-                text: 'Tensão'
-            },
+                      type: 'gauge',
+                      plotBorderWidth: 0,
+                      plotBackgroundColor: {
+                          linearGradient: { x1: 0, y1: 0 },
+                          stops: [
+                              [0, 'white'],
+                              [0.3, 'white'],
+                              [1, 'white']
+                          ]
+                      },
+                      plotBackgroundImage: null,
+                      height: 500
+                  },
 
-            pane: {
-                startAngle: -150,
-                endAngle: 150,
-                background: [{
-                    backgroundColor: {
-                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                        stops: [
-                            [0, '#FFF'],
-                            [1, '#333']
-                        ]
-                    },
-                    borderWidth: 0,
-                    outerRadius: '109%'
-                }, {
-                    backgroundColor: {
-                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                        stops: [
-                            [0, '#333'],
-                            [1, '#FFF']
-                        ]
-                    },
-                    borderWidth: 1,
-                    outerRadius: '107%'
-                }, {
-                    // default background
-                }, {
-                    backgroundColor: '#DDD',
-                    borderWidth: 0,
-                    outerRadius: '105%',
-                    innerRadius: '103%'
-                }]
-            },
+                  title: {
+                      text: 'Tensão'
+                  },
 
-            // the value axis
-            yAxis: {
-                min: 0,
-                max: 40,
+                  pane: [{
+                      startAngle: -60,
+                      endAngle: 60,
+                      background: null,
+                      center: ['50%', '50%'],
+                      size: 350
+                  }],
 
-                minorTickInterval: 'auto',
-                minorTickWidth: 1,
-                minorTickLength: 10,
-                minorTickPosition: 'inside',
-                minorTickColor: '#666',
+                  tooltip: {
+                      enabled: false
+                  },
+                   exporting: { enabled: false },
 
-                tickPixelInterval: 30,
-                tickWidth: 2,
-                tickPosition: 'inside',
-                tickLength: 10,
-                tickColor: '#666',
-                labels: {
-                    step: 2,
-                    rotation: 'auto',
-                    style: {
-                        color: 'black',
-                        fontSize:'15px'
-                    }
-                },
-                title: {
-                    text: 'V'
-                },
-                plotBands: [{
-                    from: 0,
-                    to: 10,
-                    color: '#55BF3B' // green
-                }, {
-                    from: 10,
-                    to:30,
-                    color: '#DDDF0D' // yellow
-                }, {
-                    from: 30,
-                    to: 40,
-                    color: '#DF5353' // red
-                }]
-            },
-            exporting: { enabled: false },
-            series: [{
-                name: 'Tensão',
-                data: [0],
-                tooltip: {
-                    valueSuffix: ' V'
-                }
-            }]
+                  yAxis: [{
+                      min: 0,
+                      max: 40,
+                      minorTickPosition: 'outside',
+                      minorTickInterval: 'auto',
 
-            },
+                      tickPosition: 'outside',
+                      labels: {
+                          rotation: 'auto',
+                          distance: 20
+                      },
+                      plotBands: [{
+                          from: 30,
+                          to: 40,
+                          color: '#C02316',
+                          innerRadius: '100%',
+                          outerRadius: '105%'
+                      }],
+                      pane: 0,
+                      title: {
+                          text: '<br/><span style="font-size:20px">Tensão (V)</span>',
+                          y: 0
+                      }
+                  }],
 
+                  plotOptions: {
+                      gauge: {
+                          dataLabels: {
+                              enabled: false
+                          },
+                          dial: {
+                              radius: '100%'
+                          }
+                      }
+                  },
+
+
+                  series: [{
+                      name: 'Channel A',
+                      data: [0],
+                      yAxis: 0
+                  }]
+
+              },
             function (chart) {
             if (!chart.renderer.forExport) {
                 setInterval(function () {
@@ -275,102 +235,83 @@ wattcontroller.controller('mainCtrl',[ '$scope','$timeout','$http',function ($sc
             });
 
             $('#potencia').highcharts({
-                chart: {
-                    type: 'gauge',
-                    plotBackgroundColor: null,
-                    plotBackgroundImage: null,
-                    plotBorderWidth: 0,
-                    plotShadow: false
-                },
+              chart: {
 
-                title: {
-                    text: 'Potência'
-                },
+                          type: 'gauge',
+                          plotBorderWidth: 0,
+                          plotBackgroundColor: {
+                              linearGradient: { x1: 0, y1: 0 },
+                              stops: [
+                                  [0, 'white'],
+                                  [0.3, 'white'],
+                                  [1, 'white']
+                              ]
+                          },
+                          plotBackgroundImage: null,
+                          height: 500
+                      },
 
-                pane: {
-                    startAngle: -150,
-                    endAngle: 150,
-                    background: [{
-                        backgroundColor: {
-                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                            stops: [
-                                [0, '#FFF'],
-                                [1, '#333']
-                            ]
-                        },
-                        borderWidth: 0,
-                        outerRadius: '109%'
-                    }, {
-                        backgroundColor: {
-                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                            stops: [
-                                [0, '#333'],
-                                [1, '#FFF']
-                            ]
-                        },
-                        borderWidth: 1,
-                        outerRadius: '107%'
-                    }, {
-                        // default background
-                    }, {
-                        backgroundColor: '#DDD',
-                        borderWidth: 0,
-                        outerRadius: '105%',
-                        innerRadius: '103%'
-                    }]
-                },
+                      title: {
+                          text: 'Potência'
+                      },
 
-                // the value axis
-                yAxis: {
-                    min: 0,
-                    max: 135,
+                      pane: [{
+                          startAngle: -60,
+                          endAngle: 60,
+                          background: null,
+                          center: ['50%', '50%'],
+                          size: 350
+                      }],
 
-                    minorTickInterval: 'auto',
-                    minorTickWidth: 1,
-                    minorTickLength: 10,
-                    minorTickPosition: 'inside',
-                    minorTickColor: '#666',
+                      tooltip: {
+                          enabled: false
+                      },
+                       exporting: { enabled: false },
 
-                    tickPixelInterval: 30,
-                    tickWidth: 2,
-                    tickPosition: 'inside',
-                    tickLength: 10,
-                    tickColor: '#666',
-                    labels: {
-                        step: 2,
-                        rotation: 'auto',
-                        style: {
-                            color: 'black',
-                            fontSize:'15px'
-                        }
-                    },
-                    title: {
-                        text: 'W'
-                    },
-                    plotBands: [{
-                        from: 0,
-                        to: 50,
-                        color: '#55BF3B' // green
-                    }, {
-                        from: 50,
-                        to:100,
-                        color: '#DDDF0D' // yellow
-                    }, {
-                        from: 100,
-                        to: 135,
-                        color: '#DF5353' // red
-                    }]
-                },
-                exporting: { enabled: false },
-                series: [{
-                    name: 'Potência',
-                    data: [0],
-                    tooltip: {
-                        valueSuffix: ' W'
-                    }
-                }]
+                      yAxis: [{
+                          min: 0,
+                          max: 150,
+                          minorTickPosition: 'outside',
+                          minorTickInterval: 'auto',
 
-                },
+                          tickPosition: 'outside',
+                          labels: {
+                              rotation: 'auto',
+                              distance: 20
+                          },
+                          plotBands: [{
+                              from: 135,
+                              to: 150,
+                              color: '#C02316',
+                              innerRadius: '100%',
+                              outerRadius: '105%'
+                          }],
+                          pane: 0,
+                          title: {
+                              text: '<br/><span style="font-size:20px">Potência (W)</span>',
+                              y: 0
+                          }
+                      }],
+
+                      plotOptions: {
+                          gauge: {
+                              dataLabels: {
+                                  enabled: false
+                              },
+                              dial: {
+                                  radius: '100%'
+                              }
+                          }
+                      },
+
+
+                      series: [{
+                          name: 'Channel A',
+                          data: [0],
+                          yAxis: 0
+                      }]
+
+                  },
 
                 function (chart) {
                 if (!chart.renderer.forExport) {
