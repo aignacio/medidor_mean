@@ -1,5 +1,6 @@
 var wattcontroller = angular.module('wattcontroller', ['ui.bootstrap']);
 
+
 wattcontroller.controller('mainCtrl',[ '$scope','$timeout','$http',function ($scope, $timeout,$http) {
   console.log('TESTE');
   // $scope.teste = "25W";
@@ -9,7 +10,7 @@ wattcontroller.controller('mainCtrl',[ '$scope','$timeout','$http',function ($sc
       updateData();
       // $scope.filipe = $scope.filipe +1;
       $scope.getStatus();
-    }, 250);
+    }, 500);
   };
   $scope.getStatus();
   $scope.filipe = 0;
@@ -33,7 +34,17 @@ wattcontroller.controller('mainCtrl',[ '$scope','$timeout','$http',function ($sc
         $scope.status = response.status;
         console.log($scope.status);
     });
-    $scope.potencia = $scope.tensao * $scope.corrente;
+
+    $http({method: 'GET', url: '/upPower'}).
+      then(function(response) {
+        // console.log(JSON.stringify(response));
+        $scope.potencia = response.data.value;
+      }, function(response) {
+        $scope.data = response.data || "Request failed";
+        $scope.status = response.status;
+        console.log($scope.status);
+    });
+    //$scope.potencia = $scope.tensao * $scope.corrente;
     // $http({method: 'GET', url: '/upPower'}).
     //   then(function(response) {
     //     // console.log(JSON.stringify(response));
@@ -52,7 +63,7 @@ wattcontroller.controller('mainCtrl',[ '$scope','$timeout','$http',function ($sc
             plotBackgroundColor: null,
             plotBackgroundImage: null,
             plotBorderWidth: 0,
-            plotShadow: false
+            plotShadow: true
 
         },
 
@@ -96,7 +107,7 @@ wattcontroller.controller('mainCtrl',[ '$scope','$timeout','$http',function ($sc
         // the value axis
         yAxis: {
             min: 0,
-            max: 4.5,
+            max: 5,
 
             minorTickInterval: 'auto',
             minorTickWidth: 1,
@@ -126,11 +137,11 @@ wattcontroller.controller('mainCtrl',[ '$scope','$timeout','$http',function ($sc
                 color: '#55BF3B' // green
             }, {
                 from: 2,
-                to:3,
+                to:4.5,
                 color: '#DDDF0D' // yellow
             }, {
-                from: 3,
-                to: 4.5,
+                from: 4.5,
+                to: 5,
                 color: '#DF5353' // red
             }]
         },
@@ -204,7 +215,7 @@ wattcontroller.controller('mainCtrl',[ '$scope','$timeout','$http',function ($sc
             // the value axis
             yAxis: {
                 min: 0,
-                max: 30,
+                max: 40,
 
                 minorTickInterval: 'auto',
                 minorTickWidth: 1,
@@ -234,20 +245,20 @@ wattcontroller.controller('mainCtrl',[ '$scope','$timeout','$http',function ($sc
                     color: '#55BF3B' // green
                 }, {
                     from: 10,
-                    to:20,
+                    to:30,
                     color: '#DDDF0D' // yellow
                 }, {
-                    from: 20,
-                    to: 30,
+                    from: 30,
+                    to: 40,
                     color: '#DF5353' // red
                 }]
             },
             exporting: { enabled: false },
             series: [{
-                name: 'Corrente',
+                name: 'Tensão',
                 data: [0],
                 tooltip: {
-                    valueSuffix: ' A'
+                    valueSuffix: ' V'
                 }
             }]
 
@@ -352,10 +363,10 @@ wattcontroller.controller('mainCtrl',[ '$scope','$timeout','$http',function ($sc
                 },
                 exporting: { enabled: false },
                 series: [{
-                    name: 'Corrente',
+                    name: 'Potência',
                     data: [0],
                     tooltip: {
-                        valueSuffix: ' A'
+                        valueSuffix: ' W'
                     }
                 }]
 

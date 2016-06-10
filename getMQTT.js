@@ -1,8 +1,10 @@
-var IPv4Broker  = '127.0.0.1';
+var IPv4Broker  = 'awges.local';
 var mongoCon    = require('./mongo');
 var voltage     = require('./public/app/models/voltage');
 var current     = require('./public/app/models/current');
 var power       = require('./public/app/models/power');
+var relay       = require('./public/app/models/relay');
+
 var mqtt        = require('mqtt');
 var server      = mqtt.connect('mqtt:'+IPv4Broker);
 var sleep       = require('sleep');
@@ -49,12 +51,15 @@ function strToJson(str) {
 server.on('message', function (topic, message) {
   var topic = String(topic).split('/');
   var message = String(message).split('-');
+  console.log("TOPICO:"+topic);
+  console.log("MENSAGEM:"+message);
 
   switch (topic[1]) {
     case "current":
       var Current = new current();
 
-      Current.value = message[0];
+      console.log("CORRENTE RECEBIDA:"+message[0].trim());
+      Current.value = parseFloat(message[0].trim());
 
       Current.save(function (error) {
         if (error)
@@ -64,7 +69,8 @@ server.on('message', function (topic, message) {
     case "voltage":
       var Voltage = new voltage();
 
-      Voltage.value = message[0];
+      console.log("TENSÃO RECEBIDA:"+message[0].trim());
+      Voltage.value = parseFloat(message[0].trim());
 
       Voltage.save(function (error) {
         if (error)
@@ -74,9 +80,21 @@ server.on('message', function (topic, message) {
     case "power":
       var Power = new power();
 
-      Power.value = message[0];
+      console.log("POTÊNCIA RECEBIDA:"+message[0].trim());
+      Power.value = parseFloat(message[0].trim());
 
       Power.save(function (error) {
+        if (error)
+            throw error;
+      });
+      break;
+    case "relay":
+      var Relay = new relay();
+
+      console.log("RELÉ RECEBIDA:"+message[0].trim());
+      Relay.value = parseFloat(message[0].trim());
+
+      Relay.save(function (error) {
         if (error)
             throw error;
       });
@@ -88,5 +106,5 @@ server.on('message', function (topic, message) {
 
 server.on('connect', function () {
   console.log(colors.debug('[MQTT] Conectado ao broker IPv4::'+IPv4Broker));
-  server.subscribe('medidor/+');
+  server.subscribe('medidor/#');
 });
