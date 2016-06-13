@@ -22,6 +22,10 @@
         margin: 0 auto;
         text-align: center;
       }
+      .indicador{
+        color: yellow;
+        background-color: red;
+      }
     </style>
     <title>Medidor de potência - Wattímetro</title>
 </head>
@@ -38,7 +42,7 @@
       <div id="potencia" class="col-md-4 medidor"></div>
     </div>
     <div class="row">
-      <div class="col-md-4 medidor"><h2>{{corrente | number:2}}A</h2></div>
+      <div class="col-md-4 medidor"><h2>{{corrente | number:2}}<b style="color:yellow; background-color:red;">{{indicador}}</b></h2></div>
       <div class="col-md-4 medidor"><h2>{{tensao | number:2}}V</h2></div>
       <div class="col-md-4 medidor"><h2>{{potencia | number:2}}W</h2></div>
     </div>

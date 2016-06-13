@@ -19,6 +19,13 @@ wattcontroller.controller('mainCtrl',[ '$scope','$timeout','$http',function ($sc
     $http({method: 'GET', url: '/upCurrent'}).
       then(function(response) {
         // console.log(JSON.stringify(response));
+        if (parseFloat(response.data.value) >= 4.5) {
+          console.log("!Sobrecorrente!");
+          $scope.indicador = " - Sobrecorrente!";
+        }
+        else {
+          $scope.indicador = " ";
+        }
         $scope.corrente = response.data.value;
       }, function(response) {
         $scope.data = response.data || "Request failed";
@@ -318,7 +325,7 @@ wattcontroller.controller('mainCtrl',[ '$scope','$timeout','$http',function ($sc
                     setInterval(function () {
                         var point = chart.series[0].points[0];
                         // potencia = Number()*Number($scope.corrente);
-                        point.update($scope.tensao*$scope.corrente);
+                        point.update($scope.potencia);
 
                     }, 250);
                 }
