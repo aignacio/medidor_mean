@@ -1,4 +1,4 @@
-var IPv4Broker  = '192.168.0.100';
+var IPv4Broker  = '10.10.0.50';
 var mongoCon    = require('./mongo');
 var voltage     = require('./public/app/models/voltage');
 var current     = require('./public/app/models/current');
