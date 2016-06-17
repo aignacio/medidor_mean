@@ -1,4 +1,4 @@
-var IPv4Broker  = '10.10.0.50';
+var IPv4Broker  = '192.168.0.100';
 var mongoCon    = require('./mongo');
 var voltage     = require('./public/app/models/voltage');
 var current     = require('./public/app/models/current');
@@ -54,55 +54,53 @@ server.on('message', function (topic, message) {
   console.log("TOPICO:"+topic);
   console.log("MENSAGEM:"+message);
 
-  if (isNaN(parseFloat(message[0].trim()))) {
-    console.log("Erro, RECEBIDO UM NAN");
-  }else {
-    //console.log("CORRENTE RECEBIDA:"+message[0].trim());
+  switch (topic[1]) {
+    case "current":
+      var Current = new current();
 
-    switch (topic[1]) {
-      case "current":
-        var Current = new current();
+      console.log("CORRENTE RECEBIDA:"+message[0].trim());
+      Current.value = parseFloat(message[0].trim());
 
-        Current.value = parseFloat(message[0].trim());
+      Current.save(function (error) {
+        if (error)
+            throw error;
+      });
+      break;
+    case "voltage":
+      var Voltage = new voltage();
 
-        Current.save(function (error) {
-          if (error)
-              throw error;
-        });
-        break;
-      case "voltage":
-        var Voltage = new voltage();
+      console.log("TENSÃO RECEBIDA:"+message[0].trim());
+      Voltage.value = parseFloat(message[0].trim());
 
-        Voltage.value = parseFloat(message[0].trim());
+      Voltage.save(function (error) {
+        if (error)
+            throw error;
+      });
+      break;
+    case "power":
+      var Power = new power();
 
-        Voltage.save(function (error) {
-          if (error)
-              throw error;
-        });
-        break;
-      case "power":
-        var Power = new power();
+      console.log("POTÊNCIA RECEBIDA:"+message[0].trim());
+      Power.value = parseFloat(message[0].trim());
 
-        Power.value = parseFloat(message[0].trim());
+      Power.save(function (error) {
+        if (error)
+            throw error;
+      });
+      break;
+    case "relay":
+      var Relay = new relay();
 
-        Power.save(function (error) {
-          if (error)
-              throw error;
-        });
-        break;
-      case "relay":
-        var Relay = new relay();
+      console.log("RELÉ RECEBIDA:"+message[0].trim());
+      Relay.value = parseFloat(message[0].trim());
 
-        Relay.value = parseFloat(message[0].trim());
-
-        Relay.save(function (error) {
-          if (error)
-              throw error;
-        });
-        break;
-      default:
-        console.log("[MQTT]Opção MQTT Desconhecida");
-    }
+      Relay.save(function (error) {
+        if (error)
+            throw error;
+      });
+      break;
+    default:
+      console.log("[MQTT]Opção MQTT Desconhecida");
   }
 });
 
